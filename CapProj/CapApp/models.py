@@ -30,7 +30,7 @@ class Grant(models.Model):
 
     full_project_num = models.CharField(max_length=50, null=True, blank=True)
 
-    funding_ics = models.CharField(max_length=100, null=True, blank=True)
+    funding_ics = models.CharField(max_length=200, null=True, blank=True)
 
     funding_mechanism = models.CharField(max_length=150, null=True, blank=True)
 
@@ -100,6 +100,8 @@ class Grant(models.Model):
         return self.application_id # change this to something more sensible later
 
 # class Grant_Publications(models.Model):
+#     pmid =
+
     # pmid = models.ForeignKey(Grant, on_delete=models.CASCADE)
     # project_number = models.ForeignKey(Grant, on_delete=models.CASCADE)
 #not sure this is the right way to do it.
