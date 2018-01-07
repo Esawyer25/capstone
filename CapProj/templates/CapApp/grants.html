@@ -1,40 +1,33 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Root Page</title>
-  </head>
-  <body>
+{% extends "CapApp/base.html"%}
+  {%block body_block%}
     this is the grant page
     {% if grants %}
       <ol>
         {% for grant in grants %}
         <li>
-          grant info:
+          <h3>{{grant.project_title}}</h3>
         </li>
         <ul>
-          Application id: {{grant.application_id}}
+          <h4>Application id:</h4>
+          {{grant.application_id}}
         </ul>
         <ul>
-          PI Name:
+          <h4>PI Name:</h4>
           {{grant.pi_name}}
         </ul>
         <ul>
-          Project title:
-          {{grant.project_title}}
-        </ul>
-        <ul>Project_terms:
-          {{grant.project_terms}}
+          <h4>Project terms:</h4>
+          {{grant.project_terms }}
         </ul>
         <ul>
-          Abstract:
+          <h4>Abstract:</h4>
           {{grant.abstract_text}}
         </ul>
         {% endfor %}
       </ol>
 
-
     {% endif %}
-
-  </body>
-</html>
+  {% endblock %}
+  <!-- </body>
+</html> -->

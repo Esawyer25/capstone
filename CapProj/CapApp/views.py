@@ -9,21 +9,12 @@ from CapApp.models import Grant
 # Create your views here.
 
 def index(request):
-
     if request.method == 'GET': # If the form is submitted
         search_query = request.GET.get('search_box', None)
         print(search_query)
-        # grant_list = Grant.objects.get(application_id= "9001380")
-        # grant_dict = {"grants":grant_list}
-        # grant_list = Grant.objects.order_by('application_id')
-        # grant_list = Grant.objects.filter(abstract_text__search='search_query')
         print(search_query)
         if search_query:
             return HttpResponseRedirect('grants')
-        # grant_list = Grant.objects.filter(abstract_text__search='search_query')
-        # grant_dict = {"grants":grant_list}
-        # return render(request, 'CapApp/grants.html',context=grant_dict)
-
     return render(request, 'CapApp/root.html')
 
 def grants(request):
