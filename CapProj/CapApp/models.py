@@ -2,9 +2,9 @@ from django.db import models
 
 #Explanation of field names here: https://exporter.nih.gov/about.aspx
 class Grant(models.Model):
-    application_id = models.CharField(max_length=12, default="null", blank=True)
+    application_id = models.CharField(max_length=12, null=True, blank=True, unique=True)
 
-    # abstract_text = models.Text(max_length=4000, null=True) ## need to get this from the abstract doc
+    abstract_text = models.TextField(max_length=6000, null=True, blank=True) ## need to get this from the abstract doc
 
     activity = models.CharField(max_length=3, null=True, blank=True) # A 3-character code ex. RO1 (https://grants.nih.gov/grants/funding/ac_search_results.htm)
 
@@ -62,7 +62,7 @@ class Grant(models.Model):
 
     phr = models.TextField(max_length=1000, null=True, blank=True)
 
-    pi_ids = models.CharField(max_length=64, null=True, blank=True)
+    pi_ids = models.CharField(max_length=128, null=True, blank=True)
 
     pi_name= models.CharField(max_length=264, null=True, blank=True)
 
