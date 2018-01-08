@@ -68,9 +68,6 @@
         </li>
 
       </ul>
-
-
-
     </div>
 
 
@@ -84,8 +81,8 @@
           {{ grant.project_title }}</h3>
           </li>
         <ul>
-          <h4>Application id:</h4>
-          {{grant.application_id}}
+          <h4>Application information:</h4>
+          Application id: {{grant.application_id}}, activity: {{grant.activity}}
         </ul>
         <ul>
           <h4>PI Name:</h4>
@@ -96,8 +93,15 @@
           {{grant.org_name}}, {{grant.org_state}}
         </ul>
         <ul>
-          <h4>Activity:</h4>
-          {{grant.activity}}
+          <h4>Cost:</h4>
+          Total cost: $
+          {%if grant.total_cost == None %}
+            {{grant.total_cost_sub_project}},
+          {%else%}
+            {{grant.total_cost}}
+          {%endif%}
+          Direct cost: ${{grant.direct_cost_amt}}, Indirect cost: ${{grant.indirect_cost_amt}}
+          <!-- For some grants total cost is 0 b/c it is really in subproject cost -->
         </ul>
         <ul>
           <h4>Project terms:</h4>

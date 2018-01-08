@@ -102,14 +102,13 @@ class Grant(models.Model):
     def __str__(self):
         return self.application_id # change this to something more sensible later
 
+    class Meta:
+        ordering = ['-total_cost',]
 
+class Grant_Publications(models.Model):
+    pmid = models.CharField(max_length=10, null=True)
+    project_number = models.CharField(max_length=12, null=True)
 
-# class Grant_Publications(models.Model):
-#     pmid =
-
-    # pmid = models.ForeignKey(Grant, on_delete=models.CASCADE)
-    # project_number = models.ForeignKey(Grant, on_delete=models.CASCADE)
-#not sure this is the right way to do it.
 
 # class Publications(models.Model):
 #     pmid = models.CharField(max_length=16)
