@@ -2,12 +2,87 @@
 {% extends "CapApp/base.html"%}
   {%block body_block%}
     this is the grant page
-    {% if grants %}
-      <ol>
-        {% for grant in grants %}
+
+    <div class="jumbotron">
+      <h2>Summary stats</h2>
+      <ul>
         <li>
-          <h3>{{grant.project_title}}</h3>
+          <p>
+            Number of grants with keyword <em>{{grant_stats.query}}</em>:
+            {{ grant_stats.grant_count }}
+          </p>
+          <p>
+            Total cost: ${{grant_stats.grant_total_cost}}
+          </p>
+          <p>
+            Direct cost: ${{grant_stats.grant_direct_cost}}
+          </p>
+          <p>
+            Indirect cost: ${{grant_stats.grant_indirect_cost}}
+          </p>
+
+          <ul>
+            <li>
+              NIH Director’s Pioneer Award (DP1):
+              {{grant_stats.dp1_count}}
+              Total cost: ${{grant_stats.dp1_total_cost}}
+            </li>
+            <li>
+              NIH Director’s New Innovator Award (DP2):
+              {{grant_stats.dp2_count}}
+              Total cost:${{grant_stats.dp2_total_cost}}
+            </li>
+            <li>
+              Outstanding Investigator Awards (R35):
+              {{grant_stats.r35_count}}
+              Total cost:${{grant_stats.r35_total_cost}}
+            </li>
+            <li>
+              Research Project (R01):
+              {{grant_stats.r01_count}}
+              Total cost:${{grant_stats.r01_total_cost}}
+            </li>
+            <li>
+              Research Transition Award (R00):
+              {{grant_stats.r00_count}}
+              Total cost:${{grant_stats.r00_total_cost}}
+            </li>
+            <li>
+              Career Transition Award (K99):
+              {{grant_stats.k99_count}}
+              Total cost:${{grant_stats.k99_total_cost}}
+            </li>
+            <li>
+              Traning grants (F30/F31/F32):
+              {{grant_stats.f30_count}}/{{grant_stats.f31_count}}/{{grant_stats.f32_count}}
+              Total cost:${{grant_stats.f30_total_cost}}/${{grant_stats.f31_total_cost}}/${{grant_stats.f32_total_cost}}
+            </li>
+          </ul>
         </li>
+
+        <li>
+
+        </li>
+        <li>
+
+        </li>
+
+      </ul>
+
+
+
+    </div>
+
+
+    <div>
+      <h2>Search Results</h2>
+    {% if grants %}
+      <ul>
+        {% for grant in grants %}
+        <li><h3>
+          {{ forloop.counter0|add:grants.start_index }}.
+          {{ grant.project_title }}</h3>
+          </li>
         <ul>
           <h4>Application id:</h4>
           {{grant.application_id}}
@@ -15,6 +90,14 @@
         <ul>
           <h4>PI Name:</h4>
           {{grant.pi_name}}
+        </ul>
+        <ul>
+          <h4>PI Institution:</h4>
+          {{grant.org_name}}, {{grant.org_state}}
+        </ul>
+        <ul>
+          <h4>Activity:</h4>
+          {{grant.activity}}
         </ul>
         <ul>
           <h4>Project terms:</h4>
@@ -25,9 +108,32 @@
           {{grant.abstract_text}}
         </ul>
         {% endfor %}
-      </ol>
+      </ul>
 
     {% endif %}
+    </div>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if grants.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ grants.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ grants.number }} of {{ grants.paginator.num_pages }}
+            </span>
+
+            {% if grants.has_next %}
+                <a href="?page={{ grants.next_page_number }}">next</a>
+                <a href="?page={{ grants.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+
+
   {% endblock %}
+
   <!-- </body>
 </html> -->

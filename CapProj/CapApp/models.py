@@ -4,11 +4,14 @@ from django.db import models
 class Grant(models.Model):
     application_id = models.CharField(max_length=12, null=True, blank=True, unique=True)
 
-    abstract_text = models.TextField(max_length=6000, null=True, blank=True) ## need to get this from the abstract doc
+    abstract_text = models.TextField(max_length=6000, null=True, blank=True)
+    # need to get this from the abstract doc
 
-    activity = models.CharField(max_length=3, null=True, blank=True) # A 3-character code ex. RO1 (https://grants.nih.gov/grants/funding/ac_search_results.htm)
+    activity = models.CharField(max_length=3, null=True, blank=True)
+    # A 3-character code ex. RO1 (https://grants.nih.gov/grants/funding/ac_search_results.htm)
 
-    administering_ic = models.CharField(max_length=2, null=True, blank=True)# Administering Institute or Center
+    administering_ic = models.CharField(max_length=2, null=True, blank=True)
+    # Administering Institute or Center
 
     application_type = models.CharField(max_length=1, null=True, blank=True)
 
@@ -24,13 +27,13 @@ class Grant(models.Model):
 
     core_proect_num = models.CharField(max_length=20, null=True, blank=True)
 
-    ed_inst_type = models.CharField(max_length=50, null=True, blank=True)
+    ed_inst_type = models.CharField(max_length=100, null=True, blank=True)
 
     # foa_number = models.CharField(max_length=50, null=True)
 
     full_project_num = models.CharField(max_length=50, null=True, blank=True)
 
-    funding_ics = models.CharField(max_length=200, null=True, blank=True)
+    funding_ics = models.CharField(max_length=300, null=True, blank=True)
 
     funding_mechanism = models.CharField(max_length=150, null=True, blank=True)
 
@@ -62,9 +65,9 @@ class Grant(models.Model):
 
     phr = models.TextField(max_length=1000, null=True, blank=True)
 
-    pi_ids = models.CharField(max_length=128, null=True, blank=True)
+    pi_ids = models.CharField(max_length=264, null=True, blank=True)
 
-    pi_name= models.CharField(max_length=264, null=True, blank=True)
+    pi_name= models.CharField(max_length=500, null=True, blank=True)
 
     # program_officer_name = models.CharField(max_length=128, null=True)
 
@@ -98,6 +101,8 @@ class Grant(models.Model):
 
     def __str__(self):
         return self.application_id # change this to something more sensible later
+
+
 
 # class Grant_Publications(models.Model):
 #     pmid =
