@@ -13,50 +13,50 @@
             {{ grant_stats.grant_count|intcomma }}
           </p>
           <p>
-            Total cost: ${{grant_stats.grant_total_cost}}
+            Total cost: ${{grant_stats.grant_total_cost|intcomma}}
           </p>
           <p>
-            Direct cost: ${{grant_stats.grant_direct_cost}}
+            Direct cost: ${{grant_stats.grant_direct_cost|intcomma}}
           </p>
           <p>
-            Indirect cost: ${{grant_stats.grant_indirect_cost}}
+            Indirect cost: ${{grant_stats.grant_indirect_cost|intcomma}}
           </p>
 
           <ul>
             <li>
               NIH Director’s Pioneer Award (DP1):
               {{grant_stats.dp1_count}}
-              Total cost: ${{grant_stats.dp1_total_cost}}
+              Total cost: ${{grant_stats.dp1_total_cost|intcomma}}
             </li>
             <li>
               NIH Director’s New Innovator Award (DP2):
               {{grant_stats.dp2_count}}
-              Total cost:${{grant_stats.dp2_total_cost}}
+              Total cost:${{grant_stats.dp2_total_cost|intcomma}}
             </li>
             <li>
               Outstanding Investigator Awards (R35):
               {{grant_stats.r35_count}}
-              Total cost:${{grant_stats.r35_total_cost}}
+              Total cost:${{grant_stats.r35_total_cost|intcomma}}
             </li>
             <li>
               Research Project (R01):
               {{grant_stats.r01_count}}
-              Total cost:${{grant_stats.r01_total_cost}}
+              Total cost:${{grant_stats.r01_total_cost|intcomma}}
             </li>
             <li>
               Research Transition Award (R00):
               {{grant_stats.r00_count}}
-              Total cost:${{grant_stats.r00_total_cost}}
+              Total cost:${{grant_stats.r00_total_cost|intcomma}}
             </li>
             <li>
               Career Transition Award (K99):
               {{grant_stats.k99_count}}
-              Total cost:${{grant_stats.k99_total_cost}}
+              Total cost:${{grant_stats.k99_total_cost|intcomma}}
             </li>
             <li>
               Traning grants (F30/F31/F32):
               {{grant_stats.f30_count}}/{{grant_stats.f31_count}}/{{grant_stats.f32_count}}
-              Total cost:${{grant_stats.f30_total_cost}}/${{grant_stats.f31_total_cost}}/${{grant_stats.f32_total_cost}}
+              Total cost:${{grant_stats.f30_total_cost|intcomma}}/ ${{grant_stats.f31_total_cost|intcomma}}/ ${{grant_stats.f32_total_cost|intcomma}}
             </li>
           </ul>
         </li>
@@ -84,15 +84,16 @@
         <ul>
           <h4>Grant information:</h4>
           <p>
-            Core Project Number: {{grant.core_project_num}}
+              <a href="{%url 'publications'%} ?proj_num={{grant.core_project_num}}"> Core Project Number: {{grant.core_project_num}} </a>
           </p>
           <p>
             Number of years of funding: {{grant.support_year}}
           </p>
           <p>
-            Number of Papers: {{grant.number_of_papers}}
-          </p>
-          <p>
+            Number of Papers: {{grant.number_of_papers|intcomma}}
+          <!-- </p>
+          <a href="{%url 'publications'%}"> Learn More</a>
+          <p> -->
             Application id: {{grant.application_id}}, activity: {{grant.activity}}
           </p>
         </ul>
@@ -108,11 +109,12 @@
           <h4>Cost:</h4>
           Total cost: $
           {%if grant.total_cost == None %}
-            {{grant.total_cost_sub_project}},
+            {{grant.total_cost_sub_project|intcomma}},
           {%else%}
-            {{grant.total_cost}}
+            {{grant.total_cost|intcomma}}
           {%endif%}
-          Direct cost: ${{grant.direct_cost_amt}}, Indirect cost: ${{grant.indirect_cost_amt}}
+          Direct cost: ${{grant.direct_cost_amt|intcomma}},
+          Indirect cost: ${{grant.indirect_cost_amt|intcomma}}
           <!-- For some grants total cost is 0 b/c it is really in subproject cost -->
         </ul>
         <ul>

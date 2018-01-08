@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% extends "CapApp/base.html"%}
+  {%block body_block%}
+  <div class= "jumbotron">
+    Publications summary
+    Number of publications from grant:
+  </div>
+
+
+<div>
+  <p>
+    Resulting papers
+  </p>
+  {% if all_papers%}
+  <ul>
+    {% for paper in all_papers %}
+    <li>
+      <ul>
+        <li>
+          <h3>{{paper.title}}</h3>
+        </li>
+        <li>
+          Authors: {{paper.authors}}
+        </li>
+        <!-- <li>
+          Affiliation of first author: {{paper.affiliation}}
+        </li> -->
+        <li>
+          Year: {{paper.year}}
+        </li>
+        <li>
+          Journal: {{paper.journal}}
+        </li>
+        <li>
+          Abstract: {{paper.abstract}}
+        </li>
+      </ul>
+    </li>
+
+    {%endfor%}
+  </ul>
+  {%endif%}
+</div>
+
+
+
+  {%endblock%}

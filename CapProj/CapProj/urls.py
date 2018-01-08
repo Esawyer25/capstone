@@ -20,7 +20,9 @@ from CapApp import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    # url(r'^grants', views.grants, name='grants'),
+    # url(r'^publications', views.publications, name='publications'),
     url(r'^grants/', include('CapApp.urls')),
-    # url(r'^help/', include('CapApp.urls')),
+    # url(r'^publications/', include('CapApp.urls')),
     url(r'^admin/', admin.site.urls),
 ]

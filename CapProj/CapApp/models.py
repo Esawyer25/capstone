@@ -103,6 +103,10 @@ class Grant(models.Model):
     #
     # num_of_papers = Grant_Publication.objects.get(project_num= self.core_project_num).count()
 
+    def list_of_papers(self):
+        paper_list = Grant_Publication.objects.filter(project_number= self.core_project_num)
+        return paper_list
+
     def number_of_papers(self):
         paper_list = Grant_Publication.objects.filter(project_number= self.core_project_num)
         paper_number = paper_list.count()
@@ -122,7 +126,8 @@ class Grant_Publication(models.Model):
     def __str__(self):
         return self.pmid
 
-# class Publications(models.Model):
+class Publication(models.Model):
+    results = models.TextField(max_length=9000, null=True)
 #     pmid = models.CharField(max_length=16)
 #     Authors = models.TextField(max_length=5000, null=True)##(should this be one or many?)
 #     Title = models.TextField(max_length=1000, null=True)

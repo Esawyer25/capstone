@@ -4,6 +4,10 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+import pubmed_parser as pp
+import requests
+import time
+
 # from django.core.urlresolvers import reverse
 
 from CapApp.models import Grant
@@ -45,6 +49,38 @@ def grants(request):
     return render(request, 'CapApp/grants.html',{'grants': grants, 'grant_stats': grant_stats})
 
 
+#https://github.com/titipata/pubmed_parser
+#if you use this package please cite: Titipat Achakulvisut, Daniel E. Acuna (2015) "Pubmed Parser" http://github.com/titipata/pubmed_parser. http://doi.org/10.5281/zenodo.159504
+def publications(request):
+    proj_num = request.GET.get('proj_num', '')
+    #why do I sometimes get many more than one result for the same core project number when I only have 2018 loaded? this is happening for P60AA009803, P01HL018646, but not RO1s
+    focal = Grant.objects.filter(core_project_num = proj_num)[0]
+    list_papers = focal.list_of_papers()
+    print(list_papers)
+    all_papers = []
+    index = 1
+    for paper in list_papers:
+        # paper_result = pp.parse_xml_web(paper.pmid, save_xml=False)
+        all_papers.append(pp.parse_xml_web(paper.pmid, save_xml=False))
+        index += 1
+        time.sleep(1)
+
+    print(all_papers)
+
+
+    # url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=" + "25845707" +"&retmode=text&rettype=abstract"
+    # print(url)
+    # r = requests.get(url)
+    # call = requests.get(url)
+    # print(call)
+    # data = pp.parse_pubmed_xml(call)
+    # print(data)
+    # json = r.json()
+    # print(call.json())
+    # serializer = EmbedSerializer(data=json)
+
+
+    return render(request, 'CapApp/publications.html', {'all_papers':all_papers})
 
 # def your_view(request):
 #     ''' This could be your actual view or a new one '''

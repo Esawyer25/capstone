@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'CapApp',
     'django.contrib.admin',
     'django.contrib.humanize',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
