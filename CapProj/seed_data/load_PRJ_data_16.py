@@ -25,7 +25,8 @@ from CapApp.models import Grant
 import csv
 
 # Full path and name to csv file
-csv_PRJ_files= ["PRJ_csv/RePORTER_PRJ_C_FY2016.csv","PRJ_csv/RePORTER_PRJ_C_FY2015.csv"]
+# "PRJ_csv/RePORTER_PRJ_C_FY2016.csv",
+csv_PRJ_files= ["PRJ_csv/RePORTER_PRJ_C_FY2015.csv"]
 
 def date_normal(input):
     if input=="":
@@ -197,8 +198,9 @@ for csv_PRJ_file in csv_PRJ_files:
                     print(f"there was a problem with row {index}, application id: {row[0]}, file {csv_PRJ_file}")
                     # print(f"saved {success} out of {index}")
         print(f"{csv_PRJ_file} saved {success} out of {index}")
-
-csv_PRJABS_files =["PRJABS_csv/RePORTER_PRJABS_C_FY2016.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2015.csv"]
+        
+# "PRJABS_csv/RePORTER_PRJABS_C_FY2016.csv",
+csv_PRJABS_files =["PRJABS_csv/RePORTER_PRJABS_C_FY2015.csv"]
 
 for csv_PRJABS_file in csv_PRJABS_files:
 
@@ -212,13 +214,15 @@ for csv_PRJABS_file in csv_PRJABS_files:
             try:
                 focal = Grant.objects.get(application_id= row[0])
                 focal.abstract_text = row[1]
+
+                try:
+                    Grant.clean_fields(focal)
+                except ValidationError as e:
+                    print(e)
+
             except:
                 print(f"no grant with application id {row[0]}")
 
-            try:
-                Grant.clean_fields(focal)
-            except ValidationError as e:
-                print(e)
 
             try:
                 focal.save()

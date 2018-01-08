@@ -1,4 +1,4 @@
-from CapApp.models import Grant
+from CapApp.models import Grant, Grant_Publication
 
 class Stats:
     def find_total_cost(list):
@@ -8,7 +8,7 @@ class Stats:
             if item.total_cost:
                 total += item.total_cost
         return total
-        
+
     def find_direct_cost(list):
         total = 0
         # if list.count() > 0:
@@ -24,6 +24,12 @@ class Stats:
             if item.indirect_cost_amt:
                 total += item.indirect_cost_amt
         return total
+
+    # def number_of_papers(list):
+    #     for item in list:
+    #         paper_list = Grant_Publication.objects.get(project_num= item.core_project_num)
+    #         paper_number = paper_list.count()
+    #     return paper_number
 
     def return_stats_dict(grant_list, query):
         grant_count = len(grant_list)

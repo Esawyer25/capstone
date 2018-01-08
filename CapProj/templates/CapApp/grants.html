@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% extends "CapApp/base.html"%}
   {%block body_block%}
+  {% load humanize %}
     this is the grant page
 
     <div class="jumbotron">
@@ -9,7 +10,7 @@
         <li>
           <p>
             Number of grants with keyword <em>{{grant_stats.query}}</em>:
-            {{ grant_stats.grant_count }}
+            {{ grant_stats.grant_count|intcomma }}
           </p>
           <p>
             Total cost: ${{grant_stats.grant_total_cost}}
@@ -81,8 +82,19 @@
           {{ grant.project_title }}</h3>
           </li>
         <ul>
-          <h4>Application information:</h4>
-          Application id: {{grant.application_id}}, activity: {{grant.activity}}
+          <h4>Grant information:</h4>
+          <p>
+            Core Project Number: {{grant.core_project_num}}
+          </p>
+          <p>
+            Number of years of funding: {{grant.support_year}}
+          </p>
+          <p>
+            Number of Papers: {{grant.number_of_papers}}
+          </p>
+          <p>
+            Application id: {{grant.application_id}}, activity: {{grant.activity}}
+          </p>
         </ul>
         <ul>
           <h4>PI Name:</h4>

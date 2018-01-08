@@ -25,7 +25,7 @@ class Grant(models.Model):
 
     # cfda_code = models.CharField(max_length=10, null=True)
 
-    core_proect_num = models.CharField(max_length=20, null=True, blank=True)
+    core_project_num = models.CharField(max_length=20, null=True, blank=True)
 
     ed_inst_type = models.CharField(max_length=100, null=True, blank=True)
 
@@ -92,23 +92,35 @@ class Grant(models.Model):
     support_year = models.IntegerField(null=True, blank=True)
 
     direct_cost_amt = models.IntegerField(null=True, blank=True)
-
+#should this default to zero if empty?
     indirect_cost_amt = models.IntegerField(null=True, blank=True)
 
     total_cost = models.IntegerField(null=True, blank=True)
 
     total_cost_sub_project = models.IntegerField(null=True, blank=True)
 
+    # num_of_papers = models.IntegerField(null=True, blank=True)
+    #
+    # num_of_papers = Grant_Publication.objects.get(project_num= self.core_project_num).count()
+
+    def number_of_papers(self):
+        paper_list = Grant_Publication.objects.filter(project_number= self.core_project_num)
+        paper_number = paper_list.count()
+        return paper_number
+
+
     def __str__(self):
         return self.application_id # change this to something more sensible later
 
     class Meta:
-        ordering = ['-total_cost',]
+        ordering = ['-FY','-total_cost',]
 
-class Grant_Publications(models.Model):
+class Grant_Publication(models.Model):
     pmid = models.CharField(max_length=10, null=True)
     project_number = models.CharField(max_length=12, null=True)
 
+    def __str__(self):
+        return self.pmid
 
 # class Publications(models.Model):
 #     pmid = models.CharField(max_length=16)

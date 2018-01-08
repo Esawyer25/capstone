@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 {% extends "CapApp/base.html"%}
   {%block body_block%}
-    this is the root page
-    <form type="get" action="{% url 'grants' %}" style="margin: 0">
-      <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
-      <button id="search_submit" type="submit" >Submit</button>
-    </form>
+    <div>
+      <h4>Enter keyword here</h4>
+      <form type="get" action="{% url 'grants' %}" style="margin: 0">
+        <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
+        <button id="search_submit" type="submit" >Submit</button>
+      </form>
+    </div>
+
 {%endblock%}
