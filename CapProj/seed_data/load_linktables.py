@@ -25,7 +25,7 @@ from CapApp.models import Grant_Publication
 import csv
 
 # Full path and name to csv file
-csv_files= ["linktables_csv/RePORTER_PUBLNK_C_2016.csv", "linktables_csv/RePORTER_PUBLNK_C_2015.csv", "linktables_csv/RePORTER_PUBLNK_C_2014.csv"]
+csv_files= ["linktables_csv/RePORTER_PUBLNK_C_2016.csv"]
 
 for csv_file in csv_files:
 
