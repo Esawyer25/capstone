@@ -4,12 +4,12 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-import pubmed_parser as pp
+# import pubmed_parser as pp
 import requests
 import time
 
 # from django.core.urlresolvers import reverse
-
+from CapApp.pubmed import Pubmed
 from CapApp.models import Grant
 from CapApp.stats import Stats
 
@@ -60,9 +60,11 @@ def publications(request):
     all_papers = []
     index = 1
     for paper in list_papers:
-        all_papers.append(pp.parse_xml_web(paper.pmid, save_xml=False))
+        temp = (Pubmed.parse_xml_web(paper.pmid, sleep=2, save_xml=False))
+        all_papers.append(temp)
+        # all_papers.append(Pubmed.parse_xml_web(paper.pmid, sleep=2, save_xml=False))
         index += 1
-        time.sleep(0.5)
+        # time.sleep(0.5)
     return render(request, 'CapApp/publications.html', {'all_papers':all_papers, 'focal': focal})
 
 

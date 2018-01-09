@@ -26,7 +26,7 @@ import csv
 
 # Full path and name to csv file
 # csv_PRJ_files= ["PRJ_csv/RePORTER_PRJ_C_FY2018_013.csv", "PRJ_csv/RePORTER_PRJ_C_FY2018_012.csv"]
-csv_PRJ_files= ["PRJ_csv/RePORTER_PRJ_C_FY2018_014.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_013.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_012.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_011.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_010.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_009.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_008.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_007.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_006.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_005.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_004.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_003.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_002.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_001.csv"]
+csv_PRJ_files= ["seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_014.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_013.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_012.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_011.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_010.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_009.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_008.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_007.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_006.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_005.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_004.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_003.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_002.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_001.csv"]
 # csv_filepathname="RePORTER_PRJ_C_FY2018_013.csv"
 
 def date_normal(input):
@@ -201,7 +201,7 @@ for csv_PRJ_file in csv_PRJ_files:
     print(f"{csv_PRJ_file} saved {success} out of {index}")
 
 
-csv_PRJABS_files =["PRJABS_csv/RePORTER_PRJABS_C_FY2018_014.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_013.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_012.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_011.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_010.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_009.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_008.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_007.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_006.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_005.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_004.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_003.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_002.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_001.csv"]
+csv_PRJABS_files =["seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_014.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_013.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_012.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_011.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_010.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_009.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_008.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_007.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_006.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_005.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_004.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_003.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_002.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_001.csv"]
 
 for csv_PRJABS_file in csv_PRJABS_files:
 
