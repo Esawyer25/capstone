@@ -34,7 +34,7 @@ def grants(request):
     query = request.session['query']
     print(query)
 
-    grant_list = Grant.objects.filter(abstract_text__search=query).filter(activity="R01")
+    grant_list = Grant.objects.filter(abstract_text__search=query)
     paginator = Paginator(grant_list, 10)
     # Show 10 contacts per page
     page_number = request.GET.get('page')
@@ -54,13 +54,12 @@ def grants(request):
 def publications(request):
     app_id = request.GET.get('app_id', '')
     #why do I sometimes get many more than one result for the same core project number when I only have 2018 loaded? this is happening for P60AA009803, P01HL018646, but not RO1s?  Switched to app_id to avoid problem.
-    focal = Grant.objects.filter(application_id = app_id)[0]
+    focal = Grant.objects.get(application_id = app_id)
     list_papers = focal.list_of_papers()
     print(list_papers)
     all_papers = []
     index = 1
     for paper in list_papers:
-        # paper_result = pp.parse_xml_web(paper.pmid, save_xml=False)
         all_papers.append(pp.parse_xml_web(paper.pmid, save_xml=False))
         index += 1
         time.sleep(0.5)

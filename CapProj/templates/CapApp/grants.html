@@ -88,13 +88,13 @@
           </p>
           <p>
             Number of years of funding: {{grant.support_year}}
+          </p>
+          <p>
+            Number of Papers: {{grant.number_of_papers|intcomma}}
             <a href="{%url 'publications'%} ?app_id={{grant.application_id}}" class ="button">See the papers</a>
             <p class ="small">
               Note, because of limitations set by the NIH, loading the next page will take approximately 1 second per paper.
             </p>
-          </p>
-          <p>
-            Number of Papers: {{grant.number_of_papers|intcomma}}
           </p>
           <!-- </p>
           <a href="{%url 'publications'%}"> Learn More</a>
