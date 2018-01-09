@@ -26,7 +26,8 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://capproj-dev.us-west-2.elasticbeanstalk.com/',
+ALLOWED_HOSTS = [
+'capproj-dev.us-west-2.elasticbeanstalk.com'
 '127.0.0.1',]
 
 
