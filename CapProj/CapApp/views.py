@@ -34,7 +34,7 @@ def grants(request):
     query = request.session['query']
     print(query)
 
-    grant_list = Grant.objects.filter(abstract_text__search=query)
+    grant_list = Grant.objects.filter(abstract_text__search=query).filter(activity="R01")
     paginator = Paginator(grant_list, 10)
     # Show 10 contacts per page
     page_number = request.GET.get('page')
@@ -52,9 +52,9 @@ def grants(request):
 #https://github.com/titipata/pubmed_parser
 #if you use this package please cite: Titipat Achakulvisut, Daniel E. Acuna (2015) "Pubmed Parser" http://github.com/titipata/pubmed_parser. http://doi.org/10.5281/zenodo.159504
 def publications(request):
-    proj_num = request.GET.get('proj_num', '')
-    #why do I sometimes get many more than one result for the same core project number when I only have 2018 loaded? this is happening for P60AA009803, P01HL018646, but not RO1s
-    focal = Grant.objects.filter(core_project_num = proj_num)[0]
+    app_id = request.GET.get('app_id', '')
+    #why do I sometimes get many more than one result for the same core project number when I only have 2018 loaded? this is happening for P60AA009803, P01HL018646, but not RO1s?  Switched to app_id to avoid problem.
+    focal = Grant.objects.filter(application_id = app_id)[0]
     list_papers = focal.list_of_papers()
     print(list_papers)
     all_papers = []
@@ -63,9 +63,10 @@ def publications(request):
         # paper_result = pp.parse_xml_web(paper.pmid, save_xml=False)
         all_papers.append(pp.parse_xml_web(paper.pmid, save_xml=False))
         index += 1
-        time.sleep(1)
+        time.sleep(0.5)
+    return render(request, 'CapApp/publications.html', {'all_papers':all_papers, 'focal': focal})
 
-    print(all_papers)
+
 
 
     # url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=" + "25845707" +"&retmode=text&rettype=abstract"
@@ -79,8 +80,6 @@ def publications(request):
     # print(call.json())
     # serializer = EmbedSerializer(data=json)
 
-
-    return render(request, 'CapApp/publications.html', {'all_papers':all_papers})
 
 # def your_view(request):
 #     ''' This could be your actual view or a new one '''

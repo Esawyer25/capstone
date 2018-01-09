@@ -2,8 +2,24 @@
 {% extends "CapApp/base.html"%}
   {%block body_block%}
   <div class= "jumbotron">
-    Publications summary
-    Number of publications from grant:
+    <h2>Publications summary</h2>
+    <ul>
+      <li>
+        Title of Grant: {{focal.project_title}}
+      </li>
+      <li>
+        Grant Principal Investigator: {{focal.pi_name}}
+      </li>
+      <li>
+          Number of years of funding: {{focal.support_year}}
+      </li>
+      <li>
+        Number of publications from grant: {{focal.number_of_papers}}
+      </li>
+      <li>
+        Funding breakdown by year:
+      </li>
+    </ul>
   </div>
 
 
