@@ -26,7 +26,7 @@ SECRET_KEY = 'nq0l1bgawlwr+((mf_%p!szt-sa+v7+*d(mv$h3k^3opr3ka82'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://capproj-dev.us-west-2.elasticbeanstalk.com/']
 
 
 # Application definition
