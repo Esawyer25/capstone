@@ -32,7 +32,11 @@ keywords =["autism", "primate", "big data", "cancer",  "biotechnology", "converg
  # Pharmaceutical Preparations; Physiological; Population; Production; programs; Proteins; Public Health; receptor; receptor function; Recruitment Activity; Registries; Research; Research Infrastructure; residence; Resistance; Resources; response; Sampling; Seasons; Serum; Signal Transduction; Stress; Syndrome; targeted treatment; Toll-like receptors; transcriptome sequencing; transcriptomics; Translating; United States; Vaccination; vaccine response; Vaccines; Viral Hemagglutinins; Whole Blood; Work; young adult;
 
 for word in keywords:
-    present = Keyword.objects.get(keyword=word)
+    try:
+        present = Keyword.objects.get(keyword=word)
+    except:
+        present = None
+
     if present:
         print(f'this is a repeat: {present}')
     new_word = Keyword()
@@ -51,6 +55,8 @@ for word in keywords:
     except:
         print(f"there was a problem saving with Keyword {word}")
 
+    present = Keyword.objects.get(keyword=word)
+
     grant_list =Grant.objects.filter(project_terms__search=word)
     for grant in grant_list:
-        new_word.grants.add(grant)
+        present.grants.add(grant)
