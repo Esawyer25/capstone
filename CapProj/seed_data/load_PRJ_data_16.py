@@ -25,8 +25,8 @@ from CapApp.models import Grant
 import csv
 
 # Full path and name to csv file
-# "PRJ_csv/RePORTER_PRJ_C_FY2016.csv",
-csv_PRJ_files= ["PRJ_csv/RePORTER_PRJ_C_FY2015.csv","PRJ_csv/RePORTER_PRJ_C_FY2016.csv"]
+# "seed_data/PRJ_csv/RePORTER_PRJ_C_FY2016.csv",
+csv_PRJ_files= ["seed_data/PRJ_csv/RePORTER_PRJ_C_FY2015.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2016.csv"]
 
 def date_normal(input):
     if input=="":
@@ -199,8 +199,8 @@ for csv_PRJ_file in csv_PRJ_files:
                     # print(f"saved {success} out of {index}")
         print(f"{csv_PRJ_file} saved {success} out of {index}")
 
-# "PRJABS_csv/RePORTER_PRJABS_C_FY2016.csv",
-csv_PRJABS_files =["PRJABS_csv/RePORTER_PRJABS_C_FY2015.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2016.csv"]
+# "seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2016.csv",
+csv_PRJABS_files =["seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2015.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2016.csv"]
 
 for csv_PRJABS_file in csv_PRJABS_files:
 
