@@ -6,6 +6,7 @@ from lxml import etree
 from lxml import html
 from unidecode import unidecode
 from itertools import chain
+from CapProj.settings_secret import API_KEY
 
 #What does this do?
 # try:
@@ -36,7 +37,8 @@ class Pubmed:
         return a dictionary for given pmid and xml string from the site
         sleep: how much time we want to wait until requesting new xml
         """
-        link = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=%s" % str(pmid)
+        link = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=%s" % str(pmid) + "&api_key=" + API_KEY
+        print(link)
         page = requests.get(link)
         tree = html.fromstring(page.content)
         if sleep is not None:

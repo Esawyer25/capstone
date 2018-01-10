@@ -3,10 +3,23 @@
   {%block body_block%}
     <div>
       <h4>Enter keyword here</h4>
-      <form type="get" action="{% url 'grants' %}" style="margin: 0">
-        <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
+      <form type="get" action="{% url 'index' %}" style="margin: 0">
+        <input  id="q" type="text" name="q"  placeholder="Search..." >
         <button id="search_submit" type="submit" >Submit</button>
       </form>
+    </div>
+
+    <div>
+      Top searches
+      {% if top_ten_searches %}
+      <ul>
+        {% for search in top_ten_searches %}
+        <li>
+          {{search.keyword}}
+        </li>
+      {%endfor%}
+      </ul>
+      {%endif%}
     </div>
 
 {%endblock%}

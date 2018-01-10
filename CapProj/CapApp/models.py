@@ -138,7 +138,28 @@ class Publication(models.Model):
 #     DOI
 #     Author information
 
+class Keyword(models.Model):
+    keyword = models.CharField(max_length=100, null=True,unique=True)
+    grants = models.ManyToManyField(Grant)
+    searches = models.IntegerField(null=True, blank=True)
 
+    def __str__(self):
+        return self.keyword
+
+    class Meta:
+        ordering = ['-searches',]
+
+#how do i delete this?
+class Keyword_grant(models.Model):
+    nothing = models.CharField(max_length=100, null=True)
+    # keyword = models.ForeignKey(
+    #     'Keyword',
+    #     on_delete=models.CASCADE,
+    # )
+    # application_id = models.ForeignKey(
+    #     'Grant',
+    #     on_delete=models.CASCADE,
+    # )
 
 
 # Create your models here.
