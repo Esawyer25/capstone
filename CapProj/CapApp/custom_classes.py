@@ -24,7 +24,6 @@ class Add_Keyword:
 
 class Stats:
     def find_cost(list):
-        a = datetime.datetime.now()
         total_cost = 0
         direct_cost = 0
         indirect_cost = 0
@@ -37,31 +36,15 @@ class Stats:
                     direct_cost += item.direct_cost_amt
                 if item.indirect_cost_amt:
                     indirect_cost += item.indirect_cost_amt
-        b = datetime.datetime.now()
-        print(f'time elapsed in total_cost: {b-a}')
         return {'total_cost':total_cost, 'direct_cost':direct_cost, 'indirect_cost':indirect_cost}
 
-    # def find_direct_cost(list):
-    #     total = 0
-    #     # if list.count() > 0:
-    #     for item in list:
-    #         if item.direct_cost_amt:
-    #             total += item.direct_cost_amt
-    #     return total
-    #
-    # def find_indirect_cost(list):
-    #     total = 0
-    #     # if list.count() > 0:
-    #     for item in list:
-    #         if item.indirect_cost_amt:
-    #             total += item.indirect_cost_amt
-    #     return total
-
-    # def number_of_papers(list):
-    #     for item in list:
-    #         paper_list = Grant_Publication.objects.get(project_num= item.core_project_num)
-    #         paper_number = paper_list.count()
-    #     return paper_number
+    def divide_by_FY(grant_list):
+        years = range(1985, 2018, 1)
+        grants_by_year={}
+        for year in years:
+            year_str = str(year)
+            grants_by_year[year_str] = grant_list.filter(FY=year)
+        return grants_by_year
 
     def return_stats_dict(grant_list, query):
 

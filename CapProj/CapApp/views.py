@@ -23,6 +23,7 @@ def index(request):
     if top_ten_searches.count() > 10:
         top_ten_searches = top_ten_searches[0:10]
 
+    #none of this is working b/c the search form submits to grants b/c the urls are messed up
     errors = []
     if 'q' in request.GET:
         q = request.GET['q']
