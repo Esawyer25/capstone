@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 {% extends "CapApp/base.html"%}
+
+
   {%block body_block%}
   {% load humanize %}
-    this is the grant page
-
     <div class="jumbotron">
       <h2>Summary stats</h2>
       <ul>
@@ -77,7 +77,7 @@
       <ul>
         {% for grant in grants %}
         <li><h3>
-
+           {{ forloop.counter0|add:grants.start_index }}.
           {{ grant.project_title }}</h3>
           </li>
         <ul>
@@ -86,14 +86,14 @@
               Core Project Number: {{grant.core_project_num}}
           </p>
           <p>
-            Number of years of funding: {{grant.support_year}}
-            <a href="{%url 'publications'%} ?app_id={{grant.application_id}}" class ="button">See the papers</a>
-            <p class ="small">
-              Note, because of limitations set by the NIH, loadinit will take 0.5 seconds per paper
+            Number of years of funding:{{grant.support_year}}
             </p>
           </p>
           <p>
             Number of Papers: {{grant.number_of_papers|intcomma}}
+            <a href="{%url 'publications'%} ?app_id={{grant.application_id}}" class ="button">See the papers</a>
+            <p class ="small">
+              Note, because of limitations set by the NIH, loadinit will take 0.5 seconds per paper
           </p>
           <!-- </p>
           <a href="{%url 'publications'%}"> Learn More</a>
@@ -127,10 +127,23 @@
         </ul>
         <ul>
           <h4>Project terms:</h4>
-          {{grant.project_terms }}
+          {{grant.make_data_structure}}
         </ul>
         <ul>
           <h4>Abstract:</h4>
+          <div id={{grant.core_project_num}}></div>
+          <script>
+            d3.wordcloud()
+              .size([500, 300])
+              .selector('#{{grant.core_project_num}}')
+              .fill(d3.scale.ordinal().range(["#884400", "#448800", "#888800", "#444400"]))
+              .words({{grant.make_data_structure|safe}})
+              .onwordclick(function(d, i) {
+                if (d.href) { window.location = d.href; }
+              })
+              .start();
+              // index += 1
+          </script>
           {{grant.abstract_text}}
         </ul>
 

@@ -6,5 +6,4 @@ urlpatterns = [
 
     url(r'^$', views.grants, name='grants'),
     url(r'^publications', views.publications, name='publications'),
-    url(r'', views.index, name='index'),
 ]

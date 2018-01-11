@@ -230,3 +230,27 @@ for csv_PRJABS_file in csv_PRJABS_files:
                 print(f"there was a problem with row {index}, application id: {row[0]}, file: {csv_PRJABS_file}")
                 # print(f"saved {success} out of {index}")
     print(f"file {csv_PRJABS_file} saved {success} out of {index}")
+
+
+    #C= Research Construction Programs
+    #G = Resource Programs
+    #H = Community Services Program
+    #L = Loan Repayment Program
+    #O = Other Transactions
+    #P = Research Program Projects and Centers
+    #T = Training Programs
+    #U = Cooperative Agreements
+    #V= Rape Prevention and Education Grants
+    #X = Formula Grants
+    groups= ["C", "G", "H", "L", "O", "P", "T", "U", "V", "X"]
+    for code in groups:
+        temp = Grant.objects.filter(activity__startswith = code)
+        print(f'deleting {temp.count()} grants starting with {code}')
+        temp.delete()
+
+    #IK3 = Non-DHHS Nursing Research Initiative
+    activity_codes = ["IK3"]
+    for code in activity_codes:
+        temp = Grant.objects.filter(activity = code)
+        print(f'deleting {temp.count()} {code} grants')
+        temp.delete()

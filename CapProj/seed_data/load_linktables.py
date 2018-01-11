@@ -36,6 +36,7 @@ for csv_file in csv_files:
     for row in dataReader:
         index +=1
         if row[0] != 'PMID': # Ignore the headerrow,
+        #consider only importing rows where the project_number exists in the database
             grant_pub = Grant_Publication()
             # print(row[0])
             grant_pub.pmid = row[0]

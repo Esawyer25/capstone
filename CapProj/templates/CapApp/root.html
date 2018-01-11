@@ -10,7 +10,7 @@
     </div>
 
     <div>
-      Top searches
+      <h4>Top searches</h4>
       {% if top_ten_searches %}
       <ul>
         {% for search in top_ten_searches %}
@@ -20,6 +20,33 @@
       {%endfor%}
       </ul>
       {%endif%}
+    </div>
+
+
+    <div>
+      <h4>Grants included in Database:</h4>
+      <ul>
+        <li>
+          All <strong>D</strong> grants (Institutional Training and Director Program Projects)
+        </li>
+        <li>
+          All <strong>F</strong> grants (Fellowship Programs)
+        </li>
+        <li>
+          <strong>I01</strong> and <strong>I80</strong> grants (Non-HHS Research Projects and DoD Research Project Grant Program)
+        </li>
+        <li>
+          All <strong>K</strong> grants (Research Career Programs)
+        </li>
+        <li>
+          All <strong>R</strong> grants (Research Projects)
+        </li>
+        <li>
+          All <strong>S</strong> grants (Research-Related Programs)
+        </li>
+
+      </ul>
+
     </div>
 
 {%endblock%}

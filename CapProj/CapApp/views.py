@@ -122,6 +122,9 @@ def grants(request):
 
     print(f'total time: {datetime.datetime.now()-a}')
     # return render(request, 'CapApp/grants.html', grant_dict)
+
+    # wordcloud = ["wordcloud1","wordcloud2","wordcloud3","wordcloud4","wordcloud5","wordcloud6","wordcloud7","wordcloud8","wordcloud9","wordcloud10" ]
+
     return render(request, 'CapApp/grants.html',{'grants':grants, 'grant_stats': grant_stats})
 
 #https://github.com/titipata/pubmed_parser

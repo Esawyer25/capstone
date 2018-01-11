@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+# from django.conf.urls.static import static
 from django.contrib import admin
 from CapApp import views
 
@@ -26,3 +27,6 @@ urlpatterns = [
     # url(r'^publications/', include('CapApp.urls')),
     url(r'^admin/', admin.site.urls),
 ]
+
+# from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+# urlpatterns += staticfiles_urlpatterns()
