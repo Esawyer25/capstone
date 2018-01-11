@@ -3,6 +3,7 @@
    list-style-type: none;
 }
 
-.word_cloud {
+svg {
   border-color: black;
+  background-color: Snow;
 }

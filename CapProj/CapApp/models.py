@@ -136,9 +136,9 @@ class Grant(models.Model):
             except KeyError:
                 value = None
             if value:
-                ab_dict[word.capitalize()] += 8
+                ab_dict[word.capitalize()] += (8)
             else:
-                ab_dict[word.capitalize()] = 8
+                ab_dict[word.capitalize()] = (8)
 
         # for word, repeats in ab_dict.items():
         #     if repeats == 1:
@@ -150,6 +150,48 @@ class Grant(models.Model):
                 temp={"text":word, "size": repeats}
                 data.append(temp)
         return json.dumps(data)
+
+    def small_data_structure(self):
+        abstract = self.abstract_text
+
+        for punt in COMMON_PUNTUATION:
+            abstract = abstract.replace(punt, "")
+
+        abstract = abstract.split(" ")
+        abstract_list = []
+        for word in abstract:
+            abstract_list.append(word.capitalize())
+
+        remove_list = []
+        for word in abstract_list:
+            if word in COMMON_WORDS_SET:
+                remove_list.append(word)
+
+        for word in remove_list:
+            abstract_list.remove(word)
+
+        ab_dict = {}
+        for word in abstract_list:
+            try:
+                value = ab_dict[word.capitalize()]
+            except KeyError:
+                value = None
+            if value:
+                ab_dict[word.capitalize()] += (4)
+            else:
+                ab_dict[word.capitalize()] = (4)
+
+        # for word, repeats in ab_dict.items():
+        #     if repeats == 1:
+        #         ad_dict.pop(word,0)
+
+        data = []
+        for word, repeats in ab_dict.items():
+            if repeats > 4:
+                temp={"text":word, "size": repeats}
+                data.append(temp)
+        return json.dumps(data)
+
 
     def list_of_papers(self):
         paper_list = Grant_Publication.objects.filter(project_number= self.core_project_num)
@@ -175,16 +217,65 @@ class Grant_Publication(models.Model):
         return self.pmid
 
 class Publication(models.Model):
-    results = models.TextField(max_length=9000, null=True)
-#     pmid = models.CharField(max_length=16)
-#     Authors = models.TextField(max_length=5000, null=True)##(should this be one or many?)
-#     Title = models.TextField(max_length=1000, null=True)
-#     Journal = models.CharField(max_length=1000, null=True)
-#     Abstract = models.TextField(max_length=1000, null=True)
-#     Page numbers =
-#     Date
-#     DOI
-#     Author information
+    pmid = models.CharField(max_length=16, null=True, blank=True,unique=True)
+
+    title = models.CharField(max_length=500, null=True, blank=True)
+
+    abstract = models.TextField(max_length=6000, null=True, blank=True)
+
+    journal = models.CharField(max_length=500, null=True, blank=True)
+
+    affiliation= models.CharField(max_length=500, null=True, blank=True)
+
+    authors = ArrayField(models.CharField(max_length=500, null=True, blank=True), null=True)
+
+    year = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['-year',]
+
+    def small_data_structure(self):
+        abstract = self.abstract
+
+        for punt in COMMON_PUNTUATION:
+            abstract = abstract.replace(punt, "")
+
+        abstract = abstract.split(" ")
+        abstract_list = []
+        for word in abstract:
+            abstract_list.append(word.capitalize())
+
+        remove_list = []
+        for word in abstract_list:
+            if word in COMMON_WORDS_SET:
+                remove_list.append(word)
+
+        for word in remove_list:
+            abstract_list.remove(word)
+
+        ab_dict = {}
+        for word in abstract_list:
+            try:
+                value = ab_dict[word.capitalize()]
+            except KeyError:
+                value = None
+            if value:
+                ab_dict[word.capitalize()] += (4)
+            else:
+                ab_dict[word.capitalize()] = (4)
+
+        # for word, repeats in ab_dict.items():
+        #     if repeats == 1:
+        #         ad_dict.pop(word,0)
+
+        data = []
+        for word, repeats in ab_dict.items():
+            if repeats > 4:
+                temp={"text":word, "size": repeats}
+                data.append(temp)
+
+        return json.dumps(data)
+
 
 class Keyword(models.Model):
     keyword = models.CharField(max_length=100, null=True,unique=True)

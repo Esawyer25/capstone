@@ -41,6 +41,15 @@ def date_normal(input):
 
     return temp
 
+def make_array_feild(data):
+    list = data.split(";")
+    for item in list:
+        if item == "":
+            list.remove(item)
+        if "(contact)" in item:
+            item.replace("(contact)","*")
+    return list
+
 
 for csv_PRJ_file in csv_PRJ_files:
 
@@ -127,7 +136,7 @@ for csv_PRJ_file in csv_PRJ_files:
                 grant.pi_ids = row[29]
 
                 # print(row[30])
-                grant.pi_name= row[30]
+                grant.pi_name= make_array_feild(row[30])
 
                 # grant.program_officer_name = row[31]
 
@@ -227,7 +236,11 @@ for csv_PRJABS_file in csv_PRJABS_files:
         if row[0] != 'APPLICATION_ID': # Ignore the headerrow,
             try:
                 focal = Grant.objects.get(application_id= row[0])
-                focal.abstract_text = row[1]
+                abstract_text = row[1]
+                if abstract_text[0] == "?":
+                    abstract_text = abstract_text[1:]
+
+                focal.abstract_text = abstract_text
 
                 try:
                     Grant.clean_fields(focal)

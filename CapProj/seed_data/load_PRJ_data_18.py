@@ -47,7 +47,9 @@ def make_array_feild(data):
     for item in list:
         if item == "":
             list.remove(item)
-    return(list)
+        if "(contact)" in item:
+            item.replace("(contact)","*")
+    return list
 
 
 for csv_PRJ_file in csv_PRJ_files:
@@ -244,7 +246,11 @@ for csv_PRJABS_file in csv_PRJABS_files:
         if row[0] != 'APPLICATION_ID': # Ignore the headerrow,
             try:
                 focal = Grant.objects.get(application_id= row[0])
-                focal.abstract_text = row[1]
+                abstract_text = row[1]
+                if abstract_text[0] == "?":
+                    abstract_text = abstract_text[1:]
+
+                focal.abstract_text = abstract_text
             except:
                 print("no grant with that id")
 

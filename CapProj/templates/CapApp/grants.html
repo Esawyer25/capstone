@@ -78,7 +78,7 @@
         {% for grant in grants %}
 
         <li>
-          <article class = "border">
+          <article class = "grant-summary">
             <div class="grant_header">
           <h3>
            {{ forloop.counter0|add:grants.start_index }}.
@@ -86,7 +86,7 @@
           <p>
           </div>
 
-          <div class= "grant_information col-6">
+          <div class= "grant_information col-10">
           <div id={{grant.core_project_num}} class ="word_cloud pull-right "></div>
           <script>
           var fill = d3.scale.category20();
@@ -124,7 +124,10 @@
             .text(function(d) { return d.text; });
 }
           </script>
-          <strong>Principal Investigator(s):</strong>
+
+            <p>
+              <strong>Principal Investigator(s):</strong>
+            </p>
           {%for name in grant.pi_name%}
           <p>
             {{name}}
@@ -139,12 +142,13 @@
           </p>
           <p>
             <strong>Cost:</strong>
-            Total cost: $
-            <p>
+          </p>
+          <p>
+            Total cost:
             {%if grant.total_cost == None %}
-              {{grant.total_cost_sub_project|intcomma}}
+              ${{grant.total_cost_sub_project|intcomma}}
             {%else%}
-              {{grant.total_cost|intcomma}}
+              ${{grant.total_cost|intcomma}}
             {%endif%}
             </p>
             <p>
@@ -153,7 +157,6 @@
             <p>
             Indirect cost: ${{grant.indirect_cost_amt|intcomma}}
             </p>
-            <!-- For some grants total cost is 0 b/c it is really in subproject cost -->
           <p>
             <strong>Number of years of funding:</strong> {{grant.support_year}}
             </p>
@@ -165,9 +168,6 @@
               Due to limits set by the NIH,
               each paper takes 0.5 seconds to load.
             </p>
-          <p>
-            <strong>Application id:</strong> {{grant.application_id}}
-          </p>
           <p>
             <strong>Activity Code:</strong> {{grant.activity}}
           </p>
