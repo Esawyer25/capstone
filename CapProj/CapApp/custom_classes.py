@@ -4,6 +4,8 @@ import datetime
 
 class Add_Keyword:
     def create_keyword(word, grant_list, searches=0):
+        a = datetime.datetime.now()
+
         new_word = Keyword()
         new_word.keyword = word
         new_word.searches = searches
@@ -20,6 +22,28 @@ class Add_Keyword:
         grant_list =Grant.objects.filter(project_terms__search=word)
         for grant in grant_list:
             new_word.grants.add(grant)
+
+        b = datetime.datetime.now()
+        print(f'time in to create new keyword = {b-a}')
+
+    def make_short_list(grant_list_long):
+        if grant_list_long.count() > 100:
+            grant_list_short = grant_list_long[0:100]
+        else:
+            grant_list_short = grant_list_long
+        return grant_list_short
+
+    def incriment_keyword_searches(keyword_object):
+        keyword_object.searches += 1
+
+        try:
+            Keyword.full_clean(keyword_object)
+        except ValidationError as e:
+            print(e)
+        try:
+            keyword_object.save()
+        except:
+            print(f"there was a problem saving with Keyword {query}")
 
 
 class Stats:

@@ -46,50 +46,30 @@ def index(request):
 
 
 def grants(request):
-    #this is a way to save the query so it doesn't dissapear b/c of the pagination.
-    #Probablly not the best way.
-    # query = request.GET.get('q', '')
     query = request.session['query']
+
+    #1)See if there is a keyword_object for that keyword
     try:
         keyword_object = Keyword.objects.get(keyword__iexact=query)
     except:
         keyword_object = None
-
     print(f'this is the keyword_object {keyword_object}')
 
-    a = datetime.datetime.now()
+    #2) If there is a keyword_object, incriment the search feild
     if keyword_object:
-        keyword_object.searches += 1
-        print(keyword_object.searches)
-
-        try:
-            Keyword.full_clean(keyword_object)
-        except ValidationError as e:
-            print(e)
-        try:
-            keyword_object.save()
-        except:
-            print(f"there was a problem saving with Keyword {query}")
-
+        Add_Keyword.incriment_keyword_searches(keyword_object)
 
         grant_list_long = keyword_object.grants.all()
-        if grant_list_long.count() > 100:
-            grant_list_short = grant_list_long[0:100]
-        else:
-            grant_list_short = grant_list_long
-        b = datetime.datetime.now()
-        print(f'time in database call for keyword = {b-a}')
+        grant_list_short = Add_Keyword.make_short_list(grant_list_long)
 
+    #3) if there is not, do a database search and create a keyword
     else:
         grant_list_long = Grant.objects.filter(project_terms__search=query)
         Add_Keyword.create_keyword(query, grant_list_long, searches=1)
-        if grant_list_long.count() > 100:
-            grant_list_short = grant_list_long[0:100]
-        else:
-            grant_list_short = grant_list_long
-        b = datetime.datetime.now()
-        print(f'time in database query for grants= {b-a}')
 
+        grant_list_short = Add_Keyword.make_short_list(grant_list_long)
+
+    #4)Paginate the first 100 results
     c = datetime.datetime.now()
     paginator = Paginator(grant_list_short, 10)
     # Show 10 contacts per page
@@ -104,16 +84,8 @@ def grants(request):
     d = datetime.datetime.now()
     print(f'time in pagination = {d-c}')
 
-    e = datetime.datetime.now()
+    #5)Calculate the stats for all the results
     grant_stats = Stats.return_stats_dict(grant_list_long, query)
-    # grant_dict_stats= {'grant_stats': grant_stats}
-    f = datetime.datetime.now()
-    print(f'time for stats = {f-e}')
-
-    print(f'total time: {datetime.datetime.now()-a}')
-    # return render(request, 'CapApp/grants.html', grant_dict)
-
-    # wordcloud = ["wordcloud1","wordcloud2","wordcloud3","wordcloud4","wordcloud5","wordcloud6","wordcloud7","wordcloud8","wordcloud9","wordcloud10" ]
 
     return render(request, 'CapApp/grants.html',{'grants':grants, 'grant_stats': grant_stats})
 

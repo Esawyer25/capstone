@@ -25,8 +25,8 @@ from CapApp.models import Grant
 import csv
 
 # Full path and name to csv file
-# csv_PRJ_files= ["PRJ_csv/RePORTER_PRJ_C_FY2018_013.csv", "PRJ_csv/RePORTER_PRJ_C_FY2018_012.csv"]
-csv_PRJ_files= ["seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_014.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_013.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_012.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_011.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_010.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_009.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_008.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_007.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_006.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_005.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_004.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_003.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_002.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2018_001.csv"]
+csv_PRJ_files= ["PRJ_csv/RePORTER_PRJ_C_FY2018_014.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_013.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_012.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_011.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_010.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_009.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_008.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_007.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_006.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_005.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_004.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_003.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_002.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_001.csv"]
+# csv_PRJ_files= ["PRJ_csv/RePORTER_PRJ_C_FY2018_014.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_013.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_012.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_011.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_010.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_009.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_008.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_007.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_006.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_005.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_004.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_003.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_002.csv","PRJ_csv/RePORTER_PRJ_C_FY2018_001.csv"]
 # csv_filepathname="RePORTER_PRJ_C_FY2018_013.csv"
 
 def date_normal(input):
@@ -41,6 +41,13 @@ def date_normal(input):
         temp = temp[6:10] + "-"+ temp[0:2] + "-" + temp[3:5]
 
     return temp
+
+def make_array_feild(data):
+    list = data.split(";")
+    for item in list:
+        if item == "":
+            list.remove(item)
+    return(list)
 
 
 for csv_PRJ_file in csv_PRJ_files:
@@ -128,7 +135,7 @@ for csv_PRJ_file in csv_PRJ_files:
             grant.pi_ids = row[29]
 
             # print(row[30])
-            grant.pi_name= row[30]
+            grant.pi_name= make_array_feild(row[30])
 
             # grant.program_officer_name = row[31]
 
@@ -200,8 +207,31 @@ for csv_PRJ_file in csv_PRJ_files:
                 # print(f"saved {success} out of {index}")
     print(f"{csv_PRJ_file} saved {success} out of {index}")
 
+    #C= Research Construction Programs
+    #G = Resource Programs
+    #H = Community Services Program
+    #L = Loan Repayment Program
+    #O = Other Transactions
+    #P = Research Program Projects and Centers
+    #T = Training Programs
+    #U = Cooperative Agreements
+    #V= Rape Prevention and Education Grants
+    #X = Formula Grants
+groups= ["C", "G", "H", "L", "O", "P", "T", "U", "V", "X"]
+for code in groups:
+    temp = Grant.objects.filter(activity__startswith = code)
+    print(f'deleting {temp.count()} grants starting with {code}')
+    temp.delete()
 
-csv_PRJABS_files =["seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_014.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_013.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_012.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_011.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_010.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_009.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_008.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_007.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_006.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_005.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_004.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_003.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_002.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2018_001.csv"]
+    #IK3 = Non-DHHS Nursing Research Initiative
+activity_codes = ["IK3"]
+for code in activity_codes:
+    temp = Grant.objects.filter(activity = code)
+    print(f'deleting {temp.count()} {code} grants')
+    temp.delete()
+
+# csv_PRJABS_files =["PRJABS_csv/RePORTER_PRJABS_C_FY2018_014.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_013.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_012.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_011.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_010.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_009.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_008.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_007.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_006.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_005.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_004.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_003.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_002.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_001.csv"]
+csv_PRJABS_files =["PRJABS_csv/RePORTER_PRJABS_C_FY2018_014.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_013.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_012.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_011.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_010.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_009.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_008.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_007.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_006.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_005.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_004.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_003.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_002.csv","PRJABS_csv/RePORTER_PRJABS_C_FY2018_001.csv"]
 
 for csv_PRJABS_file in csv_PRJABS_files:
 
@@ -216,7 +246,7 @@ for csv_PRJABS_file in csv_PRJABS_files:
                 focal = Grant.objects.get(application_id= row[0])
                 focal.abstract_text = row[1]
             except:
-                print(f"no grant with application id {row[0]}")
+                print("no grant with that id")
 
             try:
                 Grant.clean_fields(focal)
@@ -226,32 +256,7 @@ for csv_PRJABS_file in csv_PRJABS_files:
             try:
                 focal.save()
                 success +=1
-            # print(f"saved application_id {grant.application_id}")
-            # print(f"saved {success} out of {index}")
             except:
                 print(f"there was a problem with row {index}, application id: {row[0]}, file: {csv_PRJABS_file}")
                 # print(f"saved {success} out of {index}")
     print(f"file {csv_PRJABS_file} saved {success} out of {index}")
-
-    #C= Research Construction Programs
-    #G = Resource Programs
-    #H = Community Services Program
-    #L = Loan Repayment Program
-    #O = Other Transactions
-    #P = Research Program Projects and Centers
-    #T = Training Programs
-    #U = Cooperative Agreements
-    #V= Rape Prevention and Education Grants
-    #X = Formula Grants
-    groups= ["C", "G", "H", "L", "O", "P", "T", "U", "V", "X"]
-    for code in groups:
-        temp = Grant.objects.filter(activity__startswith = code)
-        print(f'deleting {temp.count()} grants starting with {code}')
-        temp.delete()
-
-    #IK3 = Non-DHHS Nursing Research Initiative
-    activity_codes = ["IK3"]
-    for code in activity_codes:
-        temp = Grant.objects.filter(activity = code)
-        print(f'deleting {temp.count()} {code} grants')
-        temp.delete()

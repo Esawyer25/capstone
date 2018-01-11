@@ -196,6 +196,24 @@ for csv_PRJ_file in csv_PRJ_files:
                 # print(f"saved {success} out of {index}")
     print(f"{csv_PRJ_file} saved {success} out of {index}")
 
+groups= ["C", "G", "H", "L", "O", "P", "T", "U", "V", "X"]
+for code in groups:
+    temp = Grant.objects.filter(activity__startswith = code)
+    print(f'deleting {temp.count()} grants starting with {code}')
+    temp.delete()
+
+    #IK3 = Non-DHHS Nursing Research Initiative
+activity_codes = ["IK3"]
+for code in activity_codes:
+    temp = Grant.objects.filter(activity = code)
+    print(f'deleting {temp.count()} {code} grants')
+    temp.delete()
+
+
+
+
+
+
 # csv_PRJABS_files=["seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_004.csv"]
 csv_PRJABS_files =["seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_052.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_051.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_050.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_049.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_048.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_047.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_046.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_045.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_044.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_043.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_042.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_041.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_040.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_039.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_038.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_037.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_036.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_035.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_034.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_033.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_032.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_031.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_030.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_029.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_028.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_027.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_026.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_025.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_024.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_023.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_022.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_021.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_020.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_019.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_018.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_017.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_016.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_015.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_014.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_013.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_012.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_011.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_010.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_009.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_008.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_007.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_006.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_005.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_004.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_002.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2017_001.csv"]
 
@@ -230,27 +248,3 @@ for csv_PRJABS_file in csv_PRJABS_files:
                 print(f"there was a problem with row {index}, application id: {row[0]}, file: {csv_PRJABS_file}")
                 # print(f"saved {success} out of {index}")
     print(f"file {csv_PRJABS_file} saved {success} out of {index}")
-
-
-    #C= Research Construction Programs
-    #G = Resource Programs
-    #H = Community Services Program
-    #L = Loan Repayment Program
-    #O = Other Transactions
-    #P = Research Program Projects and Centers
-    #T = Training Programs
-    #U = Cooperative Agreements
-    #V= Rape Prevention and Education Grants
-    #X = Formula Grants
-    groups= ["C", "G", "H", "L", "O", "P", "T", "U", "V", "X"]
-    for code in groups:
-        temp = Grant.objects.filter(activity__startswith = code)
-        print(f'deleting {temp.count()} grants starting with {code}')
-        temp.delete()
-
-    #IK3 = Non-DHHS Nursing Research Initiative
-    activity_codes = ["IK3"]
-    for code in activity_codes:
-        temp = Grant.objects.filter(activity = code)
-        print(f'deleting {temp.count()} {code} grants')
-        temp.delete()

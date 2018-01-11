@@ -1,9 +1,8 @@
-/*div {
-  background-color: green;
-  border-color: black;
-}*/
 
-/*#main {
-  background-color: purple;
-  color: green;
-}*/
+.no_bullets {
+   list-style-type: none;
+}
+
+.word_cloud {
+  border-color: black;
+}
