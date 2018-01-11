@@ -80,72 +80,88 @@
            {{ forloop.counter0|add:grants.start_index }}.
           {{ grant.project_title }}</h3>
           </li>
-        <ul>
+          <li>
+            <h4>Principal Investigator:</h4>
+            {{grant.pi_name}},
+            <break></break>
+            {{grant.org_name}}, {{grant.org_state}}
+          </li>
+        <li>
           <h4>Grant information:</h4>
           <p>
-              Core Project Number: {{grant.core_project_num}}
+              <strong>Core Project Number:</strong> {{grant.core_project_num}}
           </p>
           <p>
-            Number of years of funding:{{grant.support_year}}
+            <strong>Cost:</strong>
+            Total cost: $
+            {%if grant.total_cost == None %}
+              {{grant.total_cost_sub_project|intcomma}},
+            {%else%}
+              {{grant.total_cost|intcomma}}
+            {%endif%}
+            Direct cost: ${{grant.direct_cost_amt|intcomma}},
+            Indirect cost: ${{grant.indirect_cost_amt|intcomma}}
+            </p>
+            <!-- For some grants total cost is 0 b/c it is really in subproject cost -->
+          <p>
+            <strong>Number of years of funding:</strong> {{grant.support_year}}
             </p>
           </p>
           <p>
-            Number of Papers: {{grant.number_of_papers|intcomma}}
+            <strong>Number of Papers:</strong> {{grant.number_of_papers|intcomma}}
             <a href="{%url 'publications'%} ?app_id={{grant.application_id}}" class ="button">See the papers</a>
             <p class ="small">
               Note, because of limitations set by the NIH, loadinit will take 0.5 seconds per paper
           </p>
-          <!-- </p>
-          <a href="{%url 'publications'%}"> Learn More</a>
-          <p> -->
           <p>
-            Application id: {{grant.application_id}}
+            <strong>Application id:</strong> {{grant.application_id}}
           </p>
           <p>
-            Activity Code: {{grant.activity}}
+            <strong>Activity Code:</strong> {{grant.activity}}
           </p>
-        </ul>
-        <ul>
-          <h4>PI Name:</h4>
-          {{grant.pi_name}}
-        </ul>
-        <ul>
-          <h4>PI Institution:</h4>
-          {{grant.org_name}}, {{grant.org_state}}
-        </ul>
-        <ul>
-          <h4>Cost:</h4>
-          Total cost: $
-          {%if grant.total_cost == None %}
-            {{grant.total_cost_sub_project|intcomma}},
-          {%else%}
-            {{grant.total_cost|intcomma}}
-          {%endif%}
-          Direct cost: ${{grant.direct_cost_amt|intcomma}},
-          Indirect cost: ${{grant.indirect_cost_amt|intcomma}}
-          <!-- For some grants total cost is 0 b/c it is really in subproject cost -->
-        </ul>
-        <ul>
-          <h4>Project terms:</h4>
-          {{grant.make_data_structure}}
-        </ul>
-        <ul>
+        </li>
+        <li>
           <h4>Abstract:</h4>
           <div id={{grant.core_project_num}}></div>
           <script>
-            d3.wordcloud()
-              .size([500, 300])
-              .selector('#{{grant.core_project_num}}')
-              .fill(d3.scale.ordinal().range(["#884400", "#448800", "#888800", "#444400"]))
-              .words({{grant.make_data_structure|safe}})
-              .onwordclick(function(d, i) {
-                if (d.href) { window.location = d.href; }
-              })
-              .start();
-              // index += 1
+          var fill = d3.scale.category20();
+          var color = d3.scale.linear()
+            .domain([0,1,2,3,4,5,6,10,15,20,100])
+            .range(["#ddd", "#ccc", "#bbb", "#aaa", "#999", "#888", "#777", "#666", "#555", "#444", "#333", "#222"]);
+          d3.layout.cloud().size([750, 280])
+        .words({{grant.make_data_structure|safe}})
+        .rotate(0)
+        .padding(3)
+        .fontSize(function(d) { return d.size; })
+        .on("end", draw)
+        .start();
+        function draw(words) {
+          d3.select("#{{grant.core_project_num}}").append("svg")
+            .attr("width", 850)
+            .attr("height", 350)
+            .attr("class", "wordcloud")
+            .append("g")
+            // without the transform, words words would get cutoff to the left and top, they would
+            // appear outside of the SVG area
+            .attr("transform", "translate(360,180)")
+            .selectAll("text")
+            .data(words)
+            .enter().append("text")
+            .style("font-size", function(d) { return d.size + "px"; })
+            .style("fill", function(d, i) { return color(i); })
+            .style("font-size", function(d) { return d.size + "px"; })
+            .style("font-family", "Impact")
+            .style("fill", function(d, i) { return fill(i); })
+            .attr("text-anchor", "middle")
+            .attr("transform", function(d) {
+                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+            })
+            .text(function(d) { return d.text; });
+}
+
           </script>
           {{grant.abstract_text}}
-        </ul>
+        </li>
 
         {% endfor %}
       </ul>

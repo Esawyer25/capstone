@@ -19,21 +19,26 @@ from CapApp.custom_classes import Stats, Add_Keyword
 
 def index(request):
     # request.session['query'] = None
+    request.session['query'] = None
+    print('this is the session info')
+    print({request.session['query']})
     top_ten_searches = Keyword.objects.all()
     if top_ten_searches.count() > 10:
         top_ten_searches = top_ten_searches[0:10]
 
     #none of this is working b/c the search form submits to grants b/c the urls are messed up
     errors = []
-    if 'q' in request.GET:
-        q = request.GET['q']
-        if not q:
-            print('if not q')
-            errors.append('Enter a search term.')
-        elif len(q) > 30:
-            errors.append('Please enter at most 30 characters.')
-        else:
-            print(q==None)
+    if request.method == 'GET':
+        q = request.GET.get('q', '')
+        print(f'query at the start {q}')
+        if q !="":
+        # if not q:
+        #     print('if not q')
+        #     errors.append('Enter a search term.')
+            # if len(q) > 30:
+            #     errors.append('Please enter at most 30 characters.')
+            # else:
+            request.session['query'] = q
             return HttpResponseRedirect('grants')
 
     return render(request, 'CapApp/root.html', {'top_ten_searches': top_ten_searches, 'errors': errors})
@@ -43,23 +48,8 @@ def index(request):
 def grants(request):
     #this is a way to save the query so it doesn't dissapear b/c of the pagination.
     #Probablly not the best way.
-    query = request.GET.get('q', '')
-    if query == "":
-        query = request.session['query']
-    else:
-        request.session['query'] = query
-
+    # query = request.GET.get('q', '')
     query = request.session['query']
-    print(f'this is the query {query}')
-
-    # if not query:
-    #     top_ten_searches = Keyword.objects.all()
-    #     if top_ten_searches.count() > 10:
-    #         top_ten_searches = top_ten_searches[0:10]
-    #     errors = ['enter a search term']
-    #     return render(request, 'CapApp/root.html', {'top_ten_searches': top_ten_searches, 'errors': errors})
-
-
     try:
         keyword_object = Keyword.objects.get(keyword__iexact=query)
     except:

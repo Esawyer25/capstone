@@ -123,7 +123,6 @@ class Grant(models.Model):
             if word in COMMON_WORDS_SET:
                 remove_list.append(word)
 
-        print(remove_list)
         for word in remove_list:
             abstract_list.remove(word)
 
@@ -134,9 +133,9 @@ class Grant(models.Model):
             except KeyError:
                 value = None
             if value:
-                ab_dict[word.capitalize()] += 1
+                ab_dict[word.capitalize()] += 8
             else:
-                ab_dict[word.capitalize()] = 1
+                ab_dict[word.capitalize()] = 8
 
         # for word, repeats in ab_dict.items():
         #     if repeats == 1:
@@ -144,7 +143,7 @@ class Grant(models.Model):
 
         data = []
         for word, repeats in ab_dict.items():
-            if repeats > 1:
+            if repeats > 8:
                 temp={"text":word, "size": repeats}
                 data.append(temp)
         return json.dumps(data)
