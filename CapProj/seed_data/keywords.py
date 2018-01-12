@@ -23,7 +23,7 @@ from django.core.exceptions import ValidationError
 from CapApp.models import Keyword, Grant
 
 
-keywords =["autism", "primate", "big data", "cancer",  "biotechnology", "convergance", "cure", "evolution", "data mining", "immunotherapy", "machine learning", "learning", "memory", "nanotechnology", "novel", "scalability", "synergey", "therapy", "cancer", "AIDS", "HIV", "cardiac", "stroke", "gender" "acute", "adaptive immune response", "adaptive immunity", "adult", "youth", "disability", "flu", "deppression", "vaccine", "dementia", "malignant", "transplant"]
+keywords =["autism", "primate", "big data", "cancer",  "biotechnology", "convergance", "cure", "evolution", "data mining", "immunotherapy", "machine learning", "learning", "memory", "nanotechnology", "novel", "scalability", "synergey", "therapy", "cancer", "AIDS", "HIV", "cardiac", "stroke", "gender" "acute", "adaptive immune response", "adaptive immunity", "adult", "youth", "disability", "flu", "deppression", "vaccine", "dementia", "malignant", "transplant", "somatosensory", "vision", "audition", "olfaction"]
 
 # "age", "age related", "aging", "antibody response", "biochemical", "biogenesis", "blood platelets", "cells", "cessation of life", "cytokine", "Cytometry", "Dendritic Cells", "disability", "flu"]
 

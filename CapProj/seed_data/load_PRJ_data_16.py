@@ -28,6 +28,8 @@ import csv
 # "seed_data/PRJ_csv/RePORTER_PRJ_C_FY2016.csv",
 csv_PRJ_files= ["seed_data/PRJ_csv/RePORTER_PRJ_C_FY2015.csv","seed_data/PRJ_csv/RePORTER_PRJ_C_FY2016.csv"]
 
+# csv_PRJ_files= ["PRJ_csv/RePORTER_PRJ_C_FY2016.csv"]
+
 def date_normal(input):
     if input=="":
         temp = "1111-11-11"
@@ -222,8 +224,9 @@ for code in activity_codes:
     temp.delete()
 
 
-# "seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2016.csv",
-csv_PRJABS_files =["seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2015.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2016.csv"]
+
+# csv_PRJABS_files =["seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2015.csv","seed_data/PRJABS_csv/RePORTER_PRJABS_C_FY2016.csv"]
+csv_PRJABS_files=["PRJABS_csv/RePORTER_PRJABS_C_FY2016.csv"]
 
 for csv_PRJABS_file in csv_PRJABS_files:
 
