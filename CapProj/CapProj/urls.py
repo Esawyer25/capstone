@@ -21,6 +21,7 @@ from CapApp import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^about/', views.about, name='about'),
     # url(r'^grants', views.grants, name='grants'),
     # url(r'^publications', views.publications, name='publications'),
     url(r'^grants/', include('CapApp.urls')),

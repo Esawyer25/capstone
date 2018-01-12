@@ -17,6 +17,9 @@ from CapApp.custom_classes import Stats, Add_Keyword
 
 # Create your views here.
 
+def about(request):
+    return render(request, 'CapApp/about.html')
+
 def index(request):
     # request.session['query'] = None
     request.session['query'] = None
@@ -41,7 +44,7 @@ def index(request):
             request.session['query'] = q
             return HttpResponseRedirect('grants')
 
-    return render(request, 'CapApp/root.html', {'top_ten_searches': top_ten_searches, 'errors': errors})
+    return render(request, 'CapApp/index.html', {'top_ten_searches': top_ten_searches, 'errors': errors})
 
 
 
