@@ -58,14 +58,7 @@ def make_array_feild(data):
     return list
 
 
-import boto3
-import smart_open
-s3 = boto3.resource('s3')
-client = boto3.client(
-    's3',
-    aws_access_key_id='AKIAJ7OGJAKRTZPOH3QQ',
-    aws_secret_access_key='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',
-    )
+
 
 # obj = s3.Object("nih-cvs-files", "RePORTER_PRJ_C_FY2016.csv")
 # # csv_file = obj.get()['Body'].read()
