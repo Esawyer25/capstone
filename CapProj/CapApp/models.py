@@ -227,7 +227,9 @@ class Publication(models.Model):
 
     affiliation= models.TextField(max_length=5000, null=True, blank=True)
 
-    authors = ArrayField(models.CharField(max_length=500, null=True, blank=True), null=True)
+    authors = models.CharField(max_length=1000, null=True, blank=True)
+
+    # authors = ArrayField(models.CharField(max_length=500, null=True, blank=True), null=True)
 
     year = models.IntegerField(null=True, blank=True)
 
