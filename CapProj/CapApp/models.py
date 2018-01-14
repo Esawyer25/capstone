@@ -31,7 +31,7 @@ class Grant(models.Model):
 
     # cfda_code = models.CharField(max_length=10, null=True)
 
-    core_project_num = models.CharField(max_length=20, null=True, blank=True)
+    core_project_num = models.CharField(max_length=30, null=True, blank=True)
 
     ed_inst_type = models.CharField(max_length=100, null=True, blank=True)
 
@@ -204,7 +204,7 @@ class Grant(models.Model):
 
 
     def __str__(self):
-        return self.application_id # change this to something more sensible later
+        return self.application_id
 
     class Meta:
         ordering = ['-FY','-total_cost',]
@@ -225,7 +225,7 @@ class Publication(models.Model):
 
     journal = models.CharField(max_length=500, null=True, blank=True)
 
-    affiliation= models.CharField(max_length=500, null=True, blank=True)
+    affiliation= models.TextField(max_length=5000, null=True, blank=True)
 
     authors = ArrayField(models.CharField(max_length=500, null=True, blank=True), null=True)
 
@@ -275,6 +275,9 @@ class Publication(models.Model):
                 data.append(temp)
 
         return json.dumps(data)
+
+    def __str__(self):
+        return self.pmid_id # change this to something more sensible later
 
 
 class Keyword(models.Model):

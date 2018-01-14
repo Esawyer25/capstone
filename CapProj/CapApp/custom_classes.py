@@ -63,14 +63,31 @@ class Stats:
         return {'total_cost':total_cost, 'direct_cost':direct_cost, 'indirect_cost':indirect_cost}
 
     def divide_by_FY(grant_list):
-        years = range(1985, 2018, 1)
+        # years = range(1985,2018,1)
+        years = range(2015, 2018, 1)
         grants_by_year={}
         for year in years:
             year_str = str(year)
             grants_by_year[year_str] = grant_list.filter(FY=year)
         return grants_by_year
 
+
+    def return_stats_by_year(grant_list, query):
+
+        #make a dict of all the stats divided by FY
+        #{totals: {grant_total_cost: xx, grant_indirect_cost:xx...}, 1985: {grant_total_cost = xx,...}}
+        grant_dict = Stats.divide_by_FY(grant_list)
+        stats_dict = {}
+        stats_dict['totals'] = Stats.return_stats_dict(grant_list, query)
+        years = range(2015, 2018, 1)
+        for year in years:
+            year_str = str(year)
+            stats_dict[year_str] = Stats.return_stats_dict(grant_dict[year_str], query)
+        return stats_dict
+
+
     def return_stats_dict(grant_list, query):
+
 
         grant1= grant_list
         a = datetime.datetime.now()
@@ -80,8 +97,13 @@ class Stats:
         grant_indirect_cost = costs['indirect_cost']
         grant_direct_cost = costs['direct_cost']
 
+        # #make dict where grants are divided by FY
+        # #ex. {'2015': <QuerySet []>, '2016': <QuerySet [<Grant: 9082664>, <Grant: 9114892>]}
+        # grant_list = Stats.divide_by_FY(grant_list)
+        # print(grant_list)
+
         # Individual Predoctoral NRSA for M.D./Ph.D. Fellowships
-        grant_f30 = Grant.objects.filter(abstract_text__search=query).filter(activity="F30")
+        grant_f30 = grant_list.filter(activity="F30")
         grant_f30 = grant_list.filter(activity="F30")
         costs = Stats.find_cost(grant_f30)
         f30_total_cost = costs['total_cost']

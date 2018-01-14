@@ -33,7 +33,7 @@ def index(request):
     errors = []
     if request.method == 'GET':
         q = request.GET.get('q', '')
-        print(f'query at the start {q}')
+        print(f'query at the start of index GET: {q}')
         if q !="":
         # if not q:
         #     print('if not q')
@@ -41,7 +41,7 @@ def index(request):
             # if len(q) > 30:
             #     errors.append('Please enter at most 30 characters.')
             # else:
-            request.session['query'] = q
+            request.session['query'] = q.rstrip()
             return HttpResponseRedirect('grants')
 
     return render(request, 'CapApp/index.html', {'top_ten_searches': top_ten_searches, 'errors': errors})
@@ -56,18 +56,20 @@ def grants(request):
         keyword_object = Keyword.objects.get(keyword__iexact=query)
     except:
         keyword_object = None
-    print(f'this is the keyword_object {keyword_object}')
+    print(f'this is the keyword_object: {keyword_object}')
 
     #2) If there is a keyword_object, incriment the search feild
     if keyword_object:
         Add_Keyword.incriment_keyword_searches(keyword_object)
 
         grant_list_long = keyword_object.grants.all()
+        print(f'a keyword exists and this is my grant list {grant_list_long}')
         grant_list_short = Add_Keyword.make_short_list(grant_list_long)
 
     #3) if there is not, do a database search and create a keyword
     else:
         grant_list_long = Grant.objects.filter(project_terms__search=query)
+        print(f'a keyword did not exist and this is my grant list {grant_list_long}')
         Add_Keyword.create_keyword(query, grant_list_long, searches=1)
 
         grant_list_short = Add_Keyword.make_short_list(grant_list_long)
@@ -88,7 +90,7 @@ def grants(request):
     print(f'time in pagination = {d-c}')
 
     #5)Calculate the stats for all the results
-    grant_stats = Stats.return_stats_dict(grant_list_long, query)
+    grant_stats = Stats.return_stats_by_year(grant_list_long, query)
 
     return render(request, 'CapApp/grants.html',{'grants':grants, 'grant_stats': grant_stats})
 
@@ -110,11 +112,11 @@ def publications(request):
         try:
             Publication.objects.get(pmid = paper.pmid)
             temp = Publication.objects.get(pmid = paper.pmid)
-            print(temp)
+            # print(temp)
             pub = temp
         except:
             temp = (Pubmed.parse_xml_web(paper.pmid, sleep=0.5, save_xml=False))
-            print(temp)
+            # print(temp)
             pub = Publication()
             pub.pmid = paper.pmid
             pub.title = temp['title']
