@@ -23,7 +23,6 @@ lxml==4.1.1
 pathspec==0.5.0
 prompt-toolkit==1.0.15
 psycopg2==2.7.3.2
-pubmed-parser==0.1
 pyasn1==0.4.2
 Pygments==2.2.0
 python-dateutil==2.6.1
