@@ -73,9 +73,9 @@ class Grant(models.Model):
 
     pi_ids = models.CharField(max_length=264, null=True, blank=True)
 
-    # pi_name= models.CharField(max_length=500, null=True, blank=True)
+    pi_name= models.CharField(max_length=500, null=True, blank=True)
 
-    pi_name = ArrayField(models.CharField(max_length=500, null=True, blank=True), null=True)
+    # pi_name = ArrayField(models.CharField(max_length=500, null=True, blank=True), null=True)
 
     # program_officer_name = models.CharField(max_length=128, null=True)
 

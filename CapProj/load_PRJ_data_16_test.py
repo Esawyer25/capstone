@@ -40,12 +40,14 @@ def date_normal(input):
 
 def make_array_feild(data):
     list = data.split(";")
+    array= {}
     for item in list:
         if item == "":
             list.remove(item)
         if "(contact)" in item:
             item.replace("(contact)","*")
-    return list
+    array = set(list)
+    return array
 
 import zipfile
 
@@ -145,7 +147,8 @@ for zip_file in zip_files:
                 grant.pi_ids = row[29]
 
                 # print(row[30])
-                grant.pi_name= make_array_feild(row[30])
+                grant.pi_name= row[30]
+                print(grant.pi_name)
 
                 # grant.program_officer_name = row[31]
 
